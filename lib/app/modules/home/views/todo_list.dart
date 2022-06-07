@@ -137,85 +137,87 @@ class TodoView extends GetView<TodoController> {
         todoController.getData();
 
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                topContent,
-                Center(
-                  child: todoController.isLoading
-                      ? const SizedBox(
-                          child: CircularProgressIndicator(),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          physics: AlwaysScrollableScrollPhysics(),
-                          itemCount: todoController.taskList.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              color: Colors.white,
-                              child: ListTile(
-                                isThreeLine: true,
-                                leading: CircleAvatar(
-                                  child: Text(
-                                    todoController.taskList[index].Date,
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: topContent),
+              todoController.isLoading
+                  ? const SizedBox(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container(
+                height: MediaQuery.of(context).size.height * 0.6,
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        physics: AlwaysScrollableScrollPhysics(),
+                        itemCount: todoController.taskList.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            color: Colors.white,
+                            child: ListTile(
+                              isThreeLine: true,
+                              leading: CircleAvatar(
+                                child: Text(todoController.taskList[index].Date,
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 5)
-                                  ),
-                                ),
-                                title: Text(
-                                  todoController.taskList[index].taskName,
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                subtitle: Text(
-                                  todoController.taskList[index].taskDes,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 10),
-                                ),
-                                trailing: SizedBox(
-                                  width: 100,
-                                  child: Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () => addTaskDialog(
-                                          todoController,
-                                          'Update Task',
-                                          todoController
-                                              .taskList[index].taskName,
-                                          todoController
-                                              .taskList[index].taskDes,
-                                          todoController.taskList[index].Date,
-                                          todoController.taskList[index].id,
-                                        ),
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: Colors.black,
-                                        ),
+                                        color: Colors.white, fontSize: 5)),
+                              ),
+                              title: Text(
+                                todoController.taskList[index].taskName,
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              subtitle: Text(
+                                todoController.taskList[index].taskDes,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 10),
+                              ),
+                              trailing: SizedBox(
+                                width: 100,
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () => addTaskDialog(
+                                        todoController,
+                                        'Update Task',
+                                        todoController.taskList[index].taskName,
+                                        todoController.taskList[index].taskDes,
+                                        todoController.taskList[index].Date,
+                                        todoController.taskList[index].id,
                                       ),
-                                      IconButton(
-                                        onPressed: () => todoController
-                                            .deleteTask(todoController
-                                                .taskList[index].id),
-                                        icon: const Icon(Icons.delete),
-                                        color: Colors.red,
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        color: Colors.black,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () => todoController
+                                          .deleteTask(todoController
+                                              .taskList[index].id),
+                                      icon: const Icon(Icons.delete),
+                                      color: Colors.red,
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                )
-              ],
-            ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+            ],
           ),
           floatingActionButton: FloatingActionButton(
             foregroundColor: Colors.blueAccent,
             child: const Icon(Icons.add),
             onPressed: () {
-              Get.toNamed(Routes.ADD_TODO,);
+              Get.toNamed(
+                Routes.ADD_TODO,
+
+              );
             },
           ),
         );
@@ -266,7 +268,7 @@ class TodoView extends GetView<TodoController> {
                     controller.taskDesController.text.trim(),
                     controller.selectDateController.text.trim(),
                     false,
-                    "");
+                    id);
 
                 controller.taskNameController.clear();
                 controller.taskDesController.clear();

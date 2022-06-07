@@ -26,6 +26,7 @@ class TodoController extends GetxController {
 
   Future<void> addTodo(String taskName, String taskDes, String Date, bool done,
       String id) async {
+
     await FirebaseFirestore.instance
         .collection('todos')
         .doc(id != '' ? id : null)
@@ -56,7 +57,7 @@ class TodoController extends GetxController {
       for (var item in _taskSnap.docs) {
         if (item['id'] == homeController.firebaseAuth.currentUser!.uid) {
           taskList.add(
-            TaskModel(item['id'], item['taskName'], item['taskDes'],
+            TaskModel(item.id, item['taskName'], item['taskDes'],
                 item['Date'], item['isDone']),
           );
         }
@@ -76,4 +77,5 @@ class TodoController extends GetxController {
     await homeController.googleSign.disconnect();
     await homeController.firebaseAuth.signOut();
   }
+
 }
