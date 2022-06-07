@@ -97,10 +97,13 @@ class AddToDoView extends GetView<TodoController> {
                         },
                       ),
                     ),
-                    DateSelect(
-                      isReadOnly: false,
-                      selectDateController: controller.selectDateController,
-                      onDateChange: controller.setSelectedDate,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DateSelect(
+                        isReadOnly: false,
+                        selectDateController: controller.selectDateController,
+                        onDateChange: controller.setSelectedDate,
+                      ),
                     ),
                     SizedBox(
                       height: 30,

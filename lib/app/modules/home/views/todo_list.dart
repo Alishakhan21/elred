@@ -151,7 +151,7 @@ class TodoView extends GetView<TodoController> {
                       child: CircularProgressIndicator(),
                     )
                   : Container(
-                height: MediaQuery.of(context).size.height * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.6,
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         physics: AlwaysScrollableScrollPhysics(),
@@ -216,7 +216,6 @@ class TodoView extends GetView<TodoController> {
             onPressed: () {
               Get.toNamed(
                 Routes.ADD_TODO,
-
               );
             },
           ),
